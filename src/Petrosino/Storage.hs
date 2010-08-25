@@ -34,4 +34,7 @@ data RuleDoc = RuleDoc { rule :: Rule
 petrosinoDB = db "petrosino"
 
 newRule :: Rule -> CouchMonad (Doc, Rev)
-newRule rule = newDoc petrosinoDB $ toJSON $ RuleDoc { rule=rule, count=0 }
+newRule rule = newDoc petrosinoDB $ toJSON $ RuleDoc { rule=rule
+                                                     , count=0
+                                                     }
+

@@ -1,4 +1,6 @@
-module Petrosino.Random where
+module Petrosino.Random (randomSample) 
+
+where
 
 import Data.List ((!!), (++), splitAt)
 import System.Random (getStdRandom, randomR)

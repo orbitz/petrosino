@@ -3,7 +3,7 @@
  
 module Main where
  
-import Database.CouchDB (getDoc, newDoc, runCouchDB', db, Rev(..), Doc)
+import Database.CouchDB (getDoc, newDoc, runCouchDBWith, createCouchConn, closeCouchConn, db, Rev(..), Doc)
 import Data.Data (Data, Typeable)
 
 import Data.List as List
@@ -37,9 +37,12 @@ n2 = Note "a56" "updated a1 text vv 45" ["tag1"]
  
 documents = map toJSON [n0, n1, n2]
 
+
 addNotes = do
   let notes = List.take 1000000 $ List.cycle documents
-  mapM_ (\n -> runCouchDB' $ newDoc mynotes n) notes
+  conn <- createCouchConn "localhost" 5984
+  mapM_ (\n -> runCouchDBWith conn $ newDoc mynotes n) notes
+  closeCouchConn conn
   return ()
 
 main = addNotes
